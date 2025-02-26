@@ -1,3 +1,12 @@
 <x-app-layout>
-    <h1>Aquí se listarán todos los posts</h1>
+    <ul>
+        <h1>Aquí se listarán todos los posts</h1>
+        @foreach ($posts as $post)
+            <li>
+                <a href="/posts{{ $post->id }}">
+                    {{ $post->name }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
 </x-app-layout>
