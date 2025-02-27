@@ -1,3 +1,17 @@
 <x-app-layout>
-    <h1>Aquí se mostrará un post en específico</h1>
+    
+    <a href="{{route('posts.index')}}">Volver al inicio</a>
+
+        <h1>Título: {{$post->name}}</h1>
+        <p>
+            <b>
+                Categoría: {{$post->category}}
+            </b>
+        </p>
+
+        <p>
+            {{$post->content}}
+        </p>
+
+
 </x-app-layout>
