@@ -35,11 +35,20 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    public function edit(){
-        return view('posts.edit');
+    public function edit(Post $post){
+        return view('posts.edit', compact('post'));
     }
 
-    public function update(){
+    public function update(Request $request, Post $post){
+
+        
+        $post->name = $request->name;
+        $post->category = $request->category;
+        $post->content = $request->content;
+
+        $post->save();
+
+        return redirect()->route('posts.show', $post);
 
     }
 

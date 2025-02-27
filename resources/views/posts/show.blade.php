@@ -13,5 +13,7 @@
             {{$post->content}}
         </p>
 
+        <a href="{{route('posts.edit', $post)}}">Editar post</a>
+
 
 </x-app-layout>
