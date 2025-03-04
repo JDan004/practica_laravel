@@ -6,10 +6,12 @@
         <br>
         @foreach ($posts as $post)
             <li>
-                <a href="{{route('posts.show', $post->id)}}">
+                <a href="{{route('posts.show', $post->slug)}}">
                     {{ $post->name }}
                 </a>
             </li>
         @endforeach
     </ul>
+
+    {{ $posts->links() }}
 </x-app-layout>

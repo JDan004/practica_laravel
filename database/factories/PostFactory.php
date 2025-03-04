@@ -19,6 +19,7 @@ class PostFactory extends Factory
         return [
             'name'=>fake()->sentence(),
             'category'=>fake()->word(),
+            'slug'=>fake()->slug(),
             'content'=>fake()->sentence(1000),
             'published_at'=>fake()->dateTime()
         ];

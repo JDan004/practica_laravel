@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
 
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::latest()->get();
+        $posts = Post::latest()->paginate(10);
         return view('posts.index', compact('posts'));
     }
 
@@ -16,15 +17,9 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request){
-        
-        $post = new Post;
+    public function store(StoreRequest $request){
 
-        $post->name = $request->name;
-        $post->category = $request->category;
-        $post->content = $request->content;
-
-        $post->save();
+        Post::create($request->validated());
 
         return redirect()->route('posts.index');
 
@@ -41,12 +36,14 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post){
 
-        
-        $post->name = $request->name;
-        $post->category = $request->category;
-        $post->content = $request->content;
+        $request->validate([
+            'name' => 'required|min:5|max:255',
+            'category' => 'required',
+            'slug' => "required|unique:posts,slug,{$post->id}",
+            'content' => 'required'
+        ]);
 
-        $post->save();
+        $post->update($request->all());
 
         return redirect()->route('posts.show', $post);
 
