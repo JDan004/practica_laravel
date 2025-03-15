@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreRequest;
+use App\Mail\PostsCreatedEmail;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -19,7 +21,9 @@ class PostController extends Controller
 
     public function store(StoreRequest $request){
 
-        Post::create($request->validated());
+        $post = Post::create($request->all());
+
+        Mail::to('admin@prueba.com')->send(new PostsCreatedEmail($post));
 
         return redirect()->route('posts.index');
 
